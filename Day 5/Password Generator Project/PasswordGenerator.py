@@ -17,5 +17,5 @@ for nr_number in range(nr_numbers):
             password = password + random.choice(numbers)
 random_password = list(password)
 random.shuffle(random_password)
-password = " ".join(random_password)
+password = "".join(random_password)
 print(password)
