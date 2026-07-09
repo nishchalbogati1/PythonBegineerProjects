@@ -59,19 +59,3 @@ Guess a letter: c
 camel
 You win!
 ```
-
-## Current Limitations
-
-- Only three words are available.
-- No lives or hangman drawing.
-- No input validation.
-- Duplicate guesses are not handled.
-- The chosen word is printed for debugging purposes.
-
-## Future Improvements
-
-- Add a larger word list.
-- Implement a lives system.
-- Display ASCII art for the hangman.
-- Prevent duplicate guesses.
-- Validate user input.
