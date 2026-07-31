@@ -31,7 +31,7 @@ Enter the first number: 10
 -
 *
 /
-Enter the operator: +
+Choose the operator: +
 
 Enter the second number: 5
 
