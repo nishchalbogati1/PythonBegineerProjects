@@ -28,7 +28,7 @@ def calculator():
     for operator in operations:
         print(f"{operator}")
     while should_accumulate:
-        operator = input("Enter the operator: ")
+        operator = input("Choose the operator: ")
         second_number = int(input("Enter the second number: "))
         if operator in operations:
             result = operations[operator](first_number, second_number)
