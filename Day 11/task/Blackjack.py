@@ -5,6 +5,9 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def deal_card():
     return random.choice(cards)
+def final_score(user_cards, computer_cards,user_score,computer_score):
+    print(f"Your final cards: {user_cards}, final score: {user_score}")
+    print(f"Computer's final cards: {computer_cards}, final score: {computer_score}")
 def calculate_score(card):
     score = sum(card)
     if score == 21 and len(card) == 2:
@@ -21,10 +24,9 @@ def blackjack():
     if choice == 'y':
         print(art.logo)
 
-        user_cards.append(deal_card())
-        computer_cards.append(deal_card())
-        user_cards.append(deal_card())
-        computer_cards.append(deal_card())
+        for _ in range(2):
+            user_cards.append(deal_card())
+            computer_cards.append(deal_card())
 
         user_score = calculate_score(user_cards)
         computer_score = calculate_score(computer_cards)
@@ -46,6 +48,7 @@ def blackjack():
             user_score = calculate_score(user_cards)
 
             if user_score > 21:
+                final_score(user_cards,computer_cards,user_score,computer_score)
                 print("You bust! Computer wins!")
                 return
             elif user_score == 21:
@@ -54,35 +57,31 @@ def blackjack():
                 break
             else:
                 print(f"Your cards: {user_cards}, current score: {user_score}")
-                extra_cards = input("Do you want another card? Type 'y' for yes and 'n' to pass: ").lower()
+                print(f"Computer's first card: {computer_cards[0]}")
+                extra_cards = input("\n Do you want another card? Type 'y' for yes and 'n' to pass: ").lower()
         while computer_score < 17:
             computer_cards.append(deal_card())
             computer_score = calculate_score(computer_cards)
+
+        final_score(user_cards, computer_cards, user_score, computer_score)
         if computer_score > 21:
-            print(f"Your final cards: {user_cards}, final score: {user_score}")
-            print(f"Computer's final cards: {computer_cards}, current score: {computer_score}")
             print("Computer busts! You win!")
         elif user_score > computer_score:
-            print(f"Your final cards: {user_cards}, final score: {user_score}")
-            print(f"Computer's final cards: {computer_cards}, current score: {computer_score}")
             print("You win!")
         elif computer_score > user_score:
-            print(f"Your final cards: {user_cards}, final score: {user_score}")
-            print(f"Computer's final cards: {computer_cards}, current score: {computer_score}")
             print("Computer wins!")
         else:
-            print(f"Your final cards: {user_cards}, final score: {user_score}")
-            print(f"Computer's final cards: {computer_cards}, current score: {computer_score}")
             print("It's a draw!")
+    elif choice == 'n':
+        exit()
+    else:
+        print("Please enter either 'y' or 'n'.")
+        print("\n" * 2)
+        blackjack()
 
-
-blackjack()
-new_game = input("Do you want to start a new hand of blackjack? Type 'y' for yes and 'n' for no: ").lower()
-if new_game == 'y':
+while True:
     blackjack()
-
-else:
-    exit()
-# print(f"Your cards: {user_cards}, current score: {user_score}")
-# print(f"Computer's first card: {computer_cards[0]}")
-# choice = input("Do you want to start a hand of blackjack. Type 'y' for yes or 'n' for no: ").lower()
+    again = input("Do you want to play again? Type 'y' for yes and 'n' for no: ")
+    if again != 'y':
+        break
+    print("\n" * 20)
