@@ -1,6 +1,6 @@
 import random
-
 import art
+
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def deal_card():
@@ -17,7 +17,10 @@ def calculate_score(card):
             card.append(1)
             score = sum(card)
     return score
-
+def current_score(user_cards, computer_cards, user_score):
+    """Displays the current score of the players."""
+    print(f"Your cards: {user_cards}, current score: {user_score}")
+    print(f"Computer's first card: {computer_cards[0]}")
 def final_score(user_cards, computer_cards,user_score,computer_score):
     """Displays the final score of the players."""
     print(f"Your final cards: {user_cards}, final score: {user_score}")
@@ -59,12 +62,10 @@ def blackjack():
                 print("You bust! Computer wins!")
                 return
             elif user_score == 21:
-                print(f"Your cards: {user_cards}, current score: {user_score}")
-                print(f"Computer's first card: {computer_cards[0]}")
+                current_score(user_cards, computer_cards, user_score)
                 break
             else:
-                print(f"Your cards: {user_cards}, current score: {user_score}")
-                print(f"Computer's first card: {computer_cards[0]}")
+                current_score(user_cards,computer_cards,user_score)
                 extra_cards = input("\n Do you want another card? Type 'y' for yes and 'n' to pass: ").lower()
         while computer_score < 17:
             computer_cards.append(deal_card())
@@ -82,9 +83,16 @@ def blackjack():
     elif choice == 'n':
         exit()
     else:
-        print("Please enter either 'y' or 'n'.")
-        print("\n" * 2)
-        blackjack()
+        print("Invalid input")
+        while True:
+            choice = input("Please enter either 'y' for yes or 'n' for no: ").lower()
+            if choice == 'y':
+                blackjack()
+                break
+            elif choice == 'n':
+                exit()
+            else:
+                print("Invalid input")
 
 while True:
     blackjack()
