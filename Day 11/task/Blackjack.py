@@ -4,11 +4,11 @@ import art
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def deal_card():
+    """Deals a random card from the deck."""
     return random.choice(cards)
-def final_score(user_cards, computer_cards,user_score,computer_score):
-    print(f"Your final cards: {user_cards}, final score: {user_score}")
-    print(f"Computer's final cards: {computer_cards}, final score: {computer_score}")
+
 def calculate_score(card):
+    """Calculates the score of the players by adding the value of the cards."""
     score = sum(card)
     if score == 21 and len(card) == 2:
         return 0
@@ -17,7 +17,14 @@ def calculate_score(card):
             card.append(1)
             score = sum(card)
     return score
+
+def final_score(user_cards, computer_cards,user_score,computer_score):
+    """Displays the final score of the players."""
+    print(f"Your final cards: {user_cards}, final score: {user_score}")
+    print(f"Computer's final cards: {computer_cards}, final score: {computer_score}")
+
 def blackjack():
+    """Contains the main working logic for Blackjack"""
     user_cards = []
     computer_cards = []
     choice = input("Do you want to start a hand of blackjack? Type 'y' for yes and 'n' for no: ").lower()
