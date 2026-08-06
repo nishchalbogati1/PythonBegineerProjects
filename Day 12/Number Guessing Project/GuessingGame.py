@@ -15,6 +15,10 @@ def trys():
         else:
             print("Please choose a valid difficulty.")
 
+def attempts_left(attempts):
+    print(f"You have {attempts} attempts left to guess the number.")
+
+
 print(art.logo)
 print("Welcome to the Guessing Game!")
 print("I am thinking of a number between 1 and 100.")
@@ -31,10 +35,12 @@ while attempts > 0:
     elif guess < number:
         print("Too low!")
         attempts -= 1
+        attempts_left(attempts)
         continue
     elif guess > number:
         print("Too high!")
         attempts -= 1
+        attempts_left(attempts)
         continue
 if attempts == 0:
     print("You have run out of guesses!")
