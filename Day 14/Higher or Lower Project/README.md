@@ -42,11 +42,8 @@ python main.py
 
 ```text
 Compare A: Instagram, a Social media platform, from United States
-
 vs
-
 Compare B: Cristiano Ronaldo, a Footballer, from Portugal
-
 Who has more followers? Type 'A' or 'B':
 ```
 
