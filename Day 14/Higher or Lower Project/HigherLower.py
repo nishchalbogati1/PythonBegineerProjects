@@ -17,27 +17,27 @@ def game_over():
     print(f"Game Over! Your final score is: {score}")
 
 score = 0
-choice1 = random_int()
-choice2 = random_int()
+choice_a = random_int()
+choice_b = random_int()
 
-while choice1 == choice2:
+while choice_a == choice_b:
     choice2 = random_int()
 
 print(art.logo)
 while True:
-    display_account("A",choice1)
+    display_account("A",choice_a)
     print(art.vs)
-    display_account("B",choice2)
+    display_account("B",choice_b)
     user_choice = input("Who has more followers? Type 'A' or 'B': ").upper()
-    a_follower = game_data.data[choice1]['follower_count']
-    b_follower = game_data.data[choice2]['follower_count']
+    a_follower = game_data.data[choice_a]['follower_count']
+    b_follower = game_data.data[choice_b]['follower_count']
     if user_choice == "A":
         if a_follower > b_follower:
             score += 1
             print(f"Correct! Current score: {score}")
             choice2 = random_int()
-            while choice1 == choice2:
-                choice2 = random_int()
+            while choice_a == choice_b:
+                choice_b = random_int()
         else:
             game_over()
             break
@@ -45,9 +45,9 @@ while True:
         if a_follower < b_follower:
             score += 1
             print(f"Correct! Current score: {score}")
-            choice1 = choice2
-            choice2 = random_int()
-            while choice1 == choice2:
+            choice_a = choice_b
+            choice_b = random_int()
+            while choice_a == choice_b:
                 choice2 = random_int()
         else:
             game_over()
