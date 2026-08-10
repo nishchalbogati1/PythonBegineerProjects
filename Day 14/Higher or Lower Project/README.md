@@ -50,11 +50,4 @@ Compare B: Cristiano Ronaldo, a Footballer, from Portugal
 Who has more followers? Type 'A' or 'B':
 ```
 
-## Future Improvements
-
-* Prevent duplicate account comparisons
-* Clear the screen between rounds
-* Display the correct follower counts after each round
-* Keep track of high scores
-
 
