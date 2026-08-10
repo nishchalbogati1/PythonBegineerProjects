@@ -25,9 +25,8 @@ for _ in range(len(game_data.data)):
     user_choice = input("Who has more followers? Type 'A' or 'B': ").upper()
     if user_choice == "A":
         if game_data.data[choice1]['follower_count'] > game_data.data[choice2]['follower_count']:
-            print("Correct!")
             score += 1
-            print(f"Your score: {score}")
+            print(f"Correct! Current score: {score}")
             choice2 = random.randint(0,len(game_data.data)-1)
         else:
             print("Wrong!")
@@ -35,14 +34,13 @@ for _ in range(len(game_data.data)):
             exit()
     elif user_choice == "B":
         if game_data.data[choice1]['follower_count'] < game_data.data[choice2]['follower_count']:
-            print("Correct!")
             score += 1
-            print(f"Your score: {score}")
+            print(f"Correct! Current score: {score}")
             choice1 = choice2
             choice2 = random.randint(0,len(game_data.data)-1)
         else:
             print("Wrong!")
-            print(f"Game Over! Your final score is: {score}")
+            print(f"Game Over! Final score: {score}")
             exit()
     else:
         print("Please enter either 'A' or 'B': ")
