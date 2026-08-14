@@ -38,14 +38,14 @@ coins = {
     "pennies": 0,
 }
 values = {
-    "v_quarters": 0.25,
-    "v_dimes": 0.10,
-    "v_nickels": 0.05,
-    "v_pennies": 0.01,
+    "quarters": 0.25,
+    "dimes": 0.10,
+    "nickels": 0.05,
+    "pennies": 0.01,
 }
 
 money = 0
-inserted_coins_value = 0
+
 
 # quarters = $0.25, dimes = $0.10, nickles = $0.05, pennies = $0.01
 def report_off(choice):
@@ -68,16 +68,22 @@ while True:
     menu_price()
     choice = input("What would you like? (Espresso, Latte, Cappuccino): ").lower()
     report_off(choice)
-    print("Please insert coins.")
+
+    inserted_coins_value = 0
     if choice == "espresso" or choice == "latte" or choice == "cappuccino":
-        for key in coins:
-            coins[key] = int(input(f"How many {key}: "))
-        print(coins)
-        for coin in coins:
-            for value in values:
-                inserted_coins_value += round((coins[coin] * values[value]),2)
-        print(f"Inserted coins total: {inserted_coins_value:.2f}")
         if choice == "espresso":
+            print("Please insert coins.")
+            while inserted_coins_value < MENU["espresso"]["cost"]:
+                for key in coins:
+                    coins[key] = int(input(f"How many {key}: "))
+                print(coins)
+                for coin in coins:
+                        inserted_coins_value += coins[coin] * values[coin]
+                print(f"Inserted coins total: {inserted_coins_value}")
+                if inserted_coins_value < MENU["espresso"]["cost"]:
+                    print("Insufficient funds.")
+                    print("Please enter more coins!")
+                    continue
             if (
                     resources["water"] >= MENU["espresso"]["ingredients"]["water"]
                     and resources["coffee"] >= MENU["espresso"]["ingredients"]["coffee"]
@@ -92,7 +98,19 @@ while True:
                     print(f"Sorry, there is not enough Coffee for espresso.")
                 break
         elif choice == "latte":
-            if (
+            print("Please insert coins.")
+            while inserted_coins_value < MENU["latte"]["cost"]:
+                for key in coins:
+                    coins[key] = int(input(f"How many {key}: "))
+                print(coins)
+                for coin in coins:
+                    inserted_coins_value += coins[coin] * values[coin]
+                print(f"Inserted coins total: {inserted_coins_value}")
+                if inserted_coins_value < MENU["latte"]["cost"]:
+                    print("Insufficient funds.")
+                    print("Please enter more coins!")
+                    continue
+            if(
                     resources["water"] >= MENU["latte"]["ingredients"]["water"]
                     and resources["coffee"] >= MENU["latte"]["ingredients"]["coffee"]
                     and resources["milk"] >= MENU["latte"]["ingredients"]["milk"]
@@ -111,6 +129,18 @@ while True:
                     print(f"Sorry, there is not enough Milk for latte.")
                 break
         elif choice == "cappuccino":
+            print("Please insert coins.")
+            while inserted_coins_value < MENU["cappuccino"]["cost"]:
+                for key in coins:
+                    coins[key] = int(input(f"How many {key}: "))
+                print(coins)
+                for coin in coins:
+                    inserted_coins_value += coins[coin] * values[coin]
+                print(f"Inserted coins total: {inserted_coins_value}")
+                if inserted_coins_value < MENU["cappuccino"]["cost"]:
+                    print("Insufficient funds.")
+                    print("Please enter more coins!")
+                    continue
             if (
                     resources["water"] >= MENU["espresso"]["ingredients"]["water"]
                     and resources["coffee"] >= MENU["espresso"]["ingredients"]["coffee"]
