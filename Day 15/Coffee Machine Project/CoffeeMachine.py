@@ -1,5 +1,5 @@
-import math
 import art
+
 MENU = {
     "espresso": {
         "ingredients": {
@@ -31,143 +31,70 @@ resources = {
     "milk": 200,
     "coffee": 100,
 }
-coins = {
-    "quarters": 0,
-    "dimes": 0,
-    "nickels": 0,
-    "pennies": 0,
-}
-values = {
-    "quarters": 0.25,
-    "dimes": 0.10,
-    "nickels": 0.05,
-    "pennies": 0.01,
-}
 
-money = 0
+profit= 0
 
 def report():
     print(f"Available resources:\n"
         f"Water: {resources['water']}\n"
         f"Milk: {resources['milk']}\n"
         f"Coffee: {resources['coffee']}\n"
-        f"Money: ${money}\n")
+        f"Money: ${profit}\n")
 
 def menu_price():
     print("MENU ITEMS")
-    for key in MENU:
-        print(f"{key.title()}: ${MENU[key]["cost"]}")
+    for item in MENU:
+        print(f"{item.title()}: ${MENU[item]["cost"]}")
+
+def insert_coins():
+    print("Please insert coins.")
+    inserted_coins_value = int(input(f"How many quarters: ")) * 0.25
+    inserted_coins_value += int(input(f"How many dimes: ")) * 0.10
+    inserted_coins_value += int(input(f"How many nickels: ")) * 0.05
+    inserted_coins_value += int(input(f"How many pennies: ")) * 0.01
+    return inserted_coins_value
+
+def is_resource_sufficient(order_ingredients):
+    for item in order_ingredients:
+        if order_ingredients[item] > resources[item]:
+            print(f"Sorry there is not enough {item}!")
+            return False
+    return True
+
+def is_transaction_successful(coins_value, drink_cost):
+    if coins_value >= drink_cost:
+        change = round((coins_value - drink_cost),2)
+        print(f"Here is ${change} in change!")
+        global profit
+        profit += drink_cost
+    else:
+        print("Sorry that's not enough money. Money refunded.")
+        return False
+    return True
+
+def make_drink(choice, order_ingredients):
+    for item in order_ingredients:
+        resources[item] -= order_ingredients[item]
+    print(f"Here is you {choice} ☕️ enjoy!")
 
 print(art.logo)
-
-while True:
+is_on = True
+while is_on:
     menu_price()
     choice = input("What would you like? (Espresso, Latte, Cappuccino): ").lower()
-    if  choice == "off":
-        break
-    elif choice == "report":
-        report()
-    elif choice == "espresso" or choice == "latte" or choice == "cappuccino":
-        inserted_coins_value = 0
-        if choice == "espresso":
-            if (
-                    resources["water"] >= MENU["espresso"]["ingredients"]["water"]
-                    and resources["coffee"] >= MENU["espresso"]["ingredients"]["coffee"]
-            ):
-                print("Please insert coins.")
-                for key in coins:
-                    coins[key] = int(input(f"How many {key}: "))
-                # print(coins)
-                for coin in coins:
-                    inserted_coins_value += coins[coin] * values[coin]
-                # print(f"Inserted coins total: {inserted_coins_value}")
-                if inserted_coins_value < MENU["espresso"]["cost"]:
-                    print("Insufficient funds! Money refunded!")
-                    continue
-                resources["water"] -= MENU["espresso"]["ingredients"]["water"]
-                resources["coffee"] -= MENU["espresso"]["ingredients"]["coffee"]
-                money += MENU["espresso"]["cost"]
-                if inserted_coins_value - MENU["espresso"]["cost"] > 0:
-                    print(f"Here is ${inserted_coins_value - MENU["espresso"]["cost"]} in change!")
-                    print("Here is you espresso ☕️ enjoy!")
-                else:
-                    print("Here is you espresso ☕️ enjoy!")
-            else:
-                if resources["water"] < MENU["espresso"]["ingredients"]["water"]:
-                    print(f"Sorry, there is not enough Water for espresso.")
-                elif resources["coffee"] < MENU["espresso"]["ingredients"]["coffee"]:
-                    print(f"Sorry, there is not enough Coffee for espresso.")
-                continue
-        elif choice == "latte":
-            if (
-                    resources["water"] >= MENU["latte"]["ingredients"]["water"]
-                    and resources["coffee"] >= MENU["latte"]["ingredients"]["coffee"]
-                    and resources["milk"] >= MENU["latte"]["ingredients"]["milk"]
-
-            ):
-                print("Please insert coins.")
-                for key in coins:
-                    coins[key] = int(input(f"How many {key}: "))
-                # print(coins)
-                for coin in coins:
-                    inserted_coins_value += coins[coin] * values[coin]
-                # print(f"Inserted coins total: {inserted_coins_value}")
-                if inserted_coins_value < MENU["latte"]["cost"]:
-                    print("Insufficient funds! Money refunded!")
-                    continue
-                resources["water"] -= MENU["latte"]["ingredients"]["water"]
-                resources["coffee"] -= MENU["latte"]["ingredients"]["coffee"]
-                resources["milk"] -= MENU["latte"]["ingredients"]["milk"]
-                money += MENU["latte"]["cost"]
-                if inserted_coins_value - MENU["latte"]["cost"] > 0:
-                    print(f"Here is ${inserted_coins_value - MENU["latte"]["cost"]} in change!")
-                    print("Here is you latte ☕️ enjoy!")
-                else:
-                    print("Here is you latte ☕️ enjoy!")
-            else:
-                if resources["water"] < MENU["latte"]["ingredients"]["water"]:
-                    print(f"Sorry, there is not enough Water for latte.")
-                elif resources["coffee"] < MENU["latte"]["ingredients"]["coffee"]:
-                    print(f"Sorry, there is not enough Coffee for latte.")
-                elif resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
-                    print(f"Sorry, there is not enough Milk for latte.")
-                continue
-        elif choice == "cappuccino":
-            if (
-                    resources["water"] >= MENU["cappuccino"]["ingredients"]["water"]
-                    and resources["coffee"] >= MENU["cappuccino"]["ingredients"]["coffee"]
-                    and resources["milk"] >= MENU["cappuccino"]["ingredients"]["milk"]
-            ):
-                print("Please insert coins.")
-                for key in coins:
-                    coins[key] = int(input(f"How many {key}: "))
-                # print(coins)
-                for coin in coins:
-                    inserted_coins_value += coins[coin] * values[coin]
-                # print(f"Inserted coins total: {inserted_coins_value}")
-                if inserted_coins_value < MENU["cappuccino"]["cost"]:
-                    print("Insufficient funds! Money refunded!")
-                    continue
-                resources["water"] -= MENU["cappuccino"]["ingredients"]["water"]
-                resources["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
-                resources["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
-                money += MENU["cappuccino"]["cost"]
-                if inserted_coins_value - MENU["cappuccino"]["cost"] > 0:
-                    print(f"Here is ${inserted_coins_value - MENU["cappuccino"]["cost"]} in change!")
-                    print("Here is you cappuccino ☕️ enjoy!")
-                else:
-                    print("Here is you cappuccino ☕️ enjoy!")
-            else:
-                if resources["water"] < MENU["cappuccino"]["ingredients"]["water"]:
-                    print(f"Sorry, there is not enough Water for cappuccino.")
-                elif resources["coffee"] < MENU["cappuccino"]["ingredients"]["coffee"]:
-                    print(f"Sorry, there is not enough Coffee for cappuccino.")
-                elif resources["milk"] < MENU["cappuccino"]["ingredients"]["milk"]:
-                    print(f"Sorry, there is not enough Milk for cappuccino.")
-                continue
+    if choice == "espresso" or choice == "latte" or choice == "cappuccino" or choice == "off" or choice == "report":
+        if  choice == "off":
+            is_on = False
+        elif choice == "report":
+            report()
+        elif choice == "espresso" or choice == "latte" or choice == "cappuccino":
+            drink = MENU[choice]
+            if is_resource_sufficient(drink["ingredients"]):
+                coins_value = insert_coins()
+                if is_transaction_successful(coins_value, drink["cost"]):
+                    make_drink(choice, drink["ingredients"])
     else:
         print("Sorry, that's not available. Please select the available menu item!")
-        continue
 
 
 
